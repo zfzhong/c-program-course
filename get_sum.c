@@ -36,8 +36,6 @@ int main(int argc, char *argv[])
         // convert an array of 'char' into an array of 'int'
         arr[i] = atoi(argv[i+1]);
     }
-    /* do your work to put arguments into an array */
-
 
     int s = get_sum(n, arr);
     printf("The sum is: %d\n", s);
