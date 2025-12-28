@@ -16,6 +16,20 @@ int find_max(int n, int arr[])
     return curr_max;
 }
 
+int find_min(int n, int arr[]) 
+{
+    /* use 'curr_min' to keep the current minimum value */
+    int curr_min = arr[0];
+    
+    for (int i = 1; i < n; ++i)
+    {
+        int a = arr[i];
+        if (a < curr_min) { curr_min = a; }
+    }
+
+    return curr_min;
+}
+
 int main(int argc, char *argv[])
 {
     if (argc < 2) 
@@ -39,9 +53,11 @@ int main(int argc, char *argv[])
     }
 
     int s = find_max(n, arr);
-
     printf("The max value is: %d\n", s);
 
+    int x = find_min(n, arr);
+    printf("The min value is: %d\n", x);
+    
     // release the memory space
     free(arr);
     arr = NULL; // NULL is equivalent to '\0', which has ascii code is 0.
