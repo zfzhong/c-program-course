@@ -25,12 +25,6 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    if (argc > 21) 
-    {
-        printf("Dont input more than 20 integers!\n");
-        return 1;    
-    }
-
     int n = argc - 1; // the number of integers
    
     /* Use malloc() allocate memory space for the array of integers.
