@@ -6,7 +6,7 @@ double compound(int amount, double rate, int years)
     double current = 0;
     double compound = 0;
 
-    for (int i=0; i < years; ++i)
+    for (int i = 0; i < years; ++i)
     {
         /* The current amount at the start of a year is the new deposit 
          * amount plus compound amount from last year. 
