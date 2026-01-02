@@ -28,33 +28,46 @@ int fibonacci(int n)
 
 int main(int argc, char *argv[])
 {
-    printf("Which Fibonacci number do you want to know?\n");
-    printf("Please input ->: ");
+    while (1) 
+    {
+        printf("Which Fibonacci number do you want to know?\n");
+        printf("Please input ->: ");
     
-    int n; 
-    scanf("%d", &n);
+        int n;
+        scanf("%d", &n);
 
-    printf("Your input is: %d\n", n);
+        if (n < 0)
+        {
+            printf("Please input an integer >= 0.\n");
+            return 1;
+        }
 
-    if (n < 0)
-    {
-        printf("Please input an integer >= 0.\n");
-        return 1;
-    }
-
-    int f = fibonacci(n);
-
-    if (n == 1)
-    {
-        /* TODO: What if n = 2 or 3 */
-
-        printf("The 1st Fibonacci number is: %d\n", f);
-    } 
-    else 
-    {
+        int f = fibonacci(n);
         printf("The %d-th Fibonacci number is: %d\n", n, f);
+
+
+        printf("Do you want to continue? Y/N\n");
+        char c;
+        scanf(" %c", &c);
+
+        if (c == 'Y')
+        {
+            printf("Good! Let's continue!\n");
+        } 
+        else if (c == 'N')
+        {
+            printf("Good bye!\n");
+            break; // break to end the loop
+        }
+        else
+        {
+            printf("Sorry, I dont understand your input. Bye!\n");
+            break; // break to end the loop
+        } 
     }
-    
+
+    printf("Your Fibonacci journey ended!\n");
+
     return 0;
 }
 
