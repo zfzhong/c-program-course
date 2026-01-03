@@ -1,12 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int fibonacci(int n)
+int fibonacci(int n, int *arr)
 {
     if (n == 0) { return 0; }
-
-    int memory_size = (n+1) * 4;
-    int *arr = (int *) malloc(memory_size);
 
     arr[0] = 0;
     arr[1] = 1;
@@ -16,18 +13,16 @@ int fibonacci(int n)
         arr[i] = arr[i-1] + arr[i-2];
     }
 
-    int s = arr[n];
-
-    // release memory    
-    free(arr);
-    arr = NULL;
-
-    return s;
+    return arr[n];
 }
 
 
 int main(int argc, char *argv[])
 {
+    int max_num = 46;
+    int memory_size = (max_num + 1) * 4;
+    int *arr = (int *) malloc(memory_size);
+
     while (1) 
     {
         printf("Which Fibonacci number do you want to know?\n");
@@ -41,10 +36,15 @@ int main(int argc, char *argv[])
             printf("Please input an integer >= 0.\n");
             return 1;
         }
+        if (n > max_num)
+        {
+            printf("Please input an integer <= %d.\n", max_num);
+            return 1;
+        }
 
-        int f = fibonacci(n);
-        printf("The %d-th Fibonacci number is: %d\n", n, f);
+        int f = fibonacci(n, arr);
 
+	printf("The %d-th Fibonacci number is: %d\n", n, f);
 
         printf("Do you want to continue? Y/N\n");
         char c;
@@ -67,6 +67,10 @@ int main(int argc, char *argv[])
     }
 
     printf("Your Fibonacci journey ended!\n");
+
+    // release memory
+    free(arr);
+    arr = NULL;
 
     return 0;
 }
