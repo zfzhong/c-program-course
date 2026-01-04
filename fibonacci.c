@@ -1,16 +1,28 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int fibonacci(int n, int *arr)
+int fibonacci(int m, int n, int *arr)
 {
+    /* input args:
+     *   m: the max n-th F sequence already computed;
+     *   n: the n-th F sequence that needs to be computed;
+     * arr: the memory space to store the F sequence;
+     */
+
     if (n == 0) { return 0; }
 
     arr[0] = 0;
     arr[1] = 1;
     
-    for (int i = 2; i <= n; ++i)
+    // f(i) = f(i-1) + f(i-2), where i >= 2;
+    int start = m + 1;
+    if (start < 2) { start = 2; }
+
+
+    for (int i = start; i <= n; ++i)
     {
         arr[i] = arr[i-1] + arr[i-2];
+        printf("Compute: f(%d) = %d\n", i, arr[i]);
     }
 
     return arr[n];
@@ -22,6 +34,8 @@ int main(int argc, char *argv[])
     int max_num = 46;
     int memory_size = (max_num + 1) * 4;
     int *arr = (int *) malloc(memory_size);
+
+    int max_computed = 0;
 
     while (1) 
     {
@@ -42,7 +56,17 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-        int f = fibonacci(n, arr);
+        int f = 0;
+
+        if (n > max_computed)
+        {
+            f = fibonacci(max_computed, n, arr);
+            max_computed = n;
+        }
+        else
+        {
+            f = arr[n];
+        }
 
 	printf("The %d-th Fibonacci number is: %d\n", n, f);
 
