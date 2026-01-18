@@ -32,6 +32,7 @@ int add(int a[], int len1, int b[], int len2, int r[], int len3)
         r[i] = t % 10; // unit digit of t
     }
     
+    // x: point to the longer array 
     int *x = (len1 > len2) ? a : b;
 
     /* Work on the rest of the longer array: 
@@ -65,8 +66,6 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Q1: how to copy argv[] into array a or b?
-
     // 1) copy argv[1] to a[]
     int length1 = strlen(argv[1]);
     int *a = (int *) malloc(length1 * 4);
@@ -80,9 +79,7 @@ int main(int argc, char *argv[])
          * a[1] = argv[1][2];
          */
         a[i] = argv[1][length1-1-i] - '0';
-        //printf("a[%d]=%d\n", i, a[i]);
     }
-
     
     // 2) copy argv[2] to b[]
     int length2 = strlen(argv[2]);
@@ -94,10 +91,9 @@ int main(int argc, char *argv[])
          * b[] = {9, 0, 3, 4}
          */
         b[i] = argv[2][length2-1-i] - '0';
-        //printf("b[%d]=%d\n", i, b[i]);
     }
 
-    // length3 is the maximum of length1 and length2, and plus 1.
+    // length3: larger of length1 and length2, and plus 1.
     int length3 = (length1 > length2) ? length1+1 : length2+1;
 
     int *r = (int *) malloc(length3 * 4);
