@@ -57,6 +57,24 @@ int add(int a[], int len1, int b[], int len2, int r[], int len3)
     return 0;
 }
 
+int format_print(int a[], int len, int max_len)
+{ 
+    /* if a[] = [3,4,5], which means the number is 543.
+     * len = 3; max_len = 10;
+     * the format and print result: "       543".
+     */
+    char buffer[8];   
+    sprintf(buffer, "%%%dd", max_len - len + 1);
+    printf(buffer, a[len-1]);
+
+    for (int i=len-2; i>=0; --i)
+    {
+        printf("%d",a[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
 
 int main(int argc, char *argv[])
 {
@@ -99,11 +117,16 @@ int main(int argc, char *argv[])
     int *r = (int *) malloc(length3 * 4);
     add(a, length1, b, length2, r, length3);
 
-    for (int i=length3-1; i>=0; --i)
-    {
-        printf("%d", r[i]);
-    }
+    printf("The calculation:\n");
+
+    format_print(a, length1, length3+1);
+    printf("+ ");
+    format_print(b, length2, length3-1);
+
+    for(int i=0; i<=length3; ++i) { printf("-"); }   
     printf("\n");
+
+    format_print(r, length3, length3+1);
 
     free(a); a = NULL;
     free(b); b = NULL;
