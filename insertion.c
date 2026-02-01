@@ -7,7 +7,7 @@ int array_insert(int *b, int len, int y)
     /* insert y into array b[] */
 
     // 1) find the location (index j)
-    int j = 0;
+    int j = len-1;
     for(int i=0; i<len; ++i)
     {
         if(b[i] > y)
@@ -15,7 +15,7 @@ int array_insert(int *b, int len, int y)
             j=i; break;   
         }
     }
-    printf("j=%d\n", j);
+    //printf("j=%d\n", j);
 
     // 2) shiftb[j],b[j+1],..., to the right
     for(int i=len-2; i>=j; --i)
@@ -23,9 +23,20 @@ int array_insert(int *b, int len, int y)
         b[i+1] = b[i];
     }
 
-    // 3) b[i] = y;
+    // 3) b[j] = y;
     b[j] = y;
 
+    return 0;
+}
+
+int print_array(int *a, int len)
+{
+    for(int i=0; i<len; ++i)
+    {
+       printf("%d ", a[i]);
+    }
+    printf("\n");
+    
     return 0;
 }
 
@@ -54,7 +65,7 @@ int main(int argc, char *argv[])
         }
     }
     
-    printf("Total number: %d\n", comma_count);
+    //printf("Total number: %d\n", comma_count);
 
     // the total # of integers from input 1
     int length = comma_count + 1;
@@ -76,23 +87,16 @@ int main(int argc, char *argv[])
         }
     }
 
-    for(int i=0; i<length+1; ++i)
-    {
-       printf("%d ", a[i]);
-    }
-    printf("\n");
+    printf("Before insertion:\n");
+    print_array(a, length+1);
 
-    
     /* Let's do our insetion here */
     int x = atoi(argv[2]);
     array_insert(a, length+1, x);
     
-    for(int i=0; i<length+1; ++i)
-    {
-       printf("%d ", a[i]);
-    }
-    printf("\n");
-
+    printf("After insertion:\n");
+    print_array(a, length+1);
+    
     // Free the memory
     free(a); a = NULL;
 
