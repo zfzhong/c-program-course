@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 
-int min_value_location(int *a, int len)
+int find_min_and_swap(int *a, int len)
 {
     int j = 0; //location
     int m = a[0]; //min value
@@ -28,6 +28,16 @@ int min_value_location(int *a, int len)
 }
 
 
+
+int sort_array(int *a, int len)
+{
+    for(int i=0; i<len-1; ++i) 
+    {
+        find_min_and_swap(a+i, len-i);
+    }
+
+    return 0;
+}
 
 int print_array(int *a, int len)
 {
@@ -80,12 +90,7 @@ int main(int argc, char *argv[])
     }
 
     print_array(a, length);
-    
-    for(int i=0; i<length-1; ++i) 
-    {
-        min_value_location(a+i, length-i);
-    }
-
+    sort_array(a, length);    
     print_array(a, length);
 
 
