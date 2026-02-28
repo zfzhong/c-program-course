@@ -2,13 +2,49 @@
 #include<string.h>
 #include<stdlib.h>
 
-int print_file(char * filename)
+#include "myarray.h"
+
+int process_file(char * filename)
 {
    FILE *fp = fopen(filename, "r");
 
-   fclose(fp);
+   // always check to make sure opening file success
+   if (fp == NULL) 
+   {
+       /* if open file failed, just return */
+       printf("Error: open file failed.\n");
+       return 1;
+   }
 
-   return 0;
+
+   char buf[255];
+   char *p = fgets(buf, sizeof(buf), fp);
+   while(p!= NULL)
+   {
+       int a[10];
+       int len = 0;
+
+       char * token=strtok(buf, ",\n");
+
+       while(token!=NULL)
+       {
+           a[len] = atoi(token);
+           len += 1;
+
+           token=strtok(NULL,",\n");
+       }
+       printf("\n");
+       
+       sort_array(a, len);
+       print_array(a, len);
+       
+       p=fgets(buf,sizeof(buf),fp);
+    }
+    printf("finished reading the file!\n");   
+   
+    fclose(fp);
+    
+    return 0;
 }
 
 int main(int argc, char *argv[])
@@ -23,7 +59,7 @@ int main(int argc, char *argv[])
     /* argv[1] has the input filename */
     char * filename = argv[1];
 
-    print_file(filename);
+    process_file(filename);
 
     return 0;
 }
