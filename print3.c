@@ -1,6 +1,19 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+void print3(int *arr, int n, int factor)
+{
+    // print numbers at index 3,6,9,...
+    for (int i=0; i<n; ++i)
+    {   
+        if ((i+1)%3 == 0)
+        {
+            printf("%d ", arr[i]*factor); // printf() is from <stdio.h>
+        }
+    }
+    printf("\n"); // print linebreak
+}
+
 int main(int argc, char *argv[])
 {
     // check the input numbers, if the user doesn't
@@ -26,26 +39,8 @@ int main(int argc, char *argv[])
         arr[i] = atoi(argv[i+1]);
     }
 
-    // print numbers at index 3,6,9,...
-    for (int i=0; i<n; ++i)
-    {   
-        if ((i+1)%3 == 0)
-        {
-            printf("%d ", arr[i]); // printf() is from <stdio.h>
-        }
-    }
-    printf("\n"); // print linebreak
-
-    // for all numbers at index 3,6,9,...,
-    // print out their value*3 
-    for (int i=0; i<n; ++i)
-    {   
-        if ((i+1)%3 == 0)
-        {
-            printf("%d ", arr[i]*3); // printf() is from <stdio.h>
-        }
-    }
-    printf("\n"); // print linebreak
+    print3(arr, n, 1);
+    print3(arr, n, 3);
 
     // free the memrory space (from heap)
     free(arr);
