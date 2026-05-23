@@ -10,9 +10,39 @@ int contra(int *va, int la, int *vb, int lb)
    * result: 1*2 + 2*4 + 3*5 + 4*7 + 5*0
    */
 
-   result =  0;
+   int total = 0;
+   int len = la < lb ? la : lb;
 
-   return result;
+   for (int i=0; i<len; ++i)
+   {
+        total += va[i] * vb[i];
+   }
+
+   return total;
+}
+
+int get_vector(int *v, char *buf)
+{
+    /* parse a row of data, and keep the values 
+     * into a vector/array.
+     * 
+     * - buf: row of data (string)
+     * - v: the array to keep values
+     */
+
+    int len = 0;
+
+    // tokenize the row
+    char * token = strtok(buf, ",\n");
+    while(token != NULL)
+    {
+        v[len] = atoi(token);
+        len += 1;
+
+        token = strtok(NULL,",\n");
+    }
+ 
+    return len;
 }
 
 
@@ -32,25 +62,31 @@ int read_file(char * filename)
 
     // read the first row
     char *p = fgets(buf, sizeof(buf), fp);
-       
-    int va[100]; // vector a
-    int la = 0;  // length of a
+    while (p != NULL)
+    {   
+        // 1) parse the first row
+        int va[100]; // vector a
+        int la = get_vector(va, buf);
+        print_array(va, la);
 
-    // tokenize the first row
-    char * token=strtok(buf, ",\n");
-    while(token!=NULL)
-    {
-        va[la] = atoi(token);
-        la += 1;
+        // 2) read/parse the 2nd row    
+        p = fgets(buf, sizeof(buf), fp);
 
-        token=strtok(NULL,",\n");
-    }
+        // stop if no 2nd row  
+        if (p == NULL) break;
  
-    printf("First vector, %d elements:\n", la);
-    print_array(va, la);
-    
-    p = fgets(buf, sizeof(buf), fp);
-   
+        int vb[100]; // vector b
+        int lb = get_vector(vb, buf); 
+        print_array(vb, lb);
+
+        // 3) calculate the dot product (contraction)
+        int res = contra(va, la, vb, lb);
+        printf("the inner prod: %d\n", res);
+
+        // 4) continue to read more rows
+        p = fgets(buf, sizeof(buf), fp);
+    }
+
     fclose(fp);
     return 0;
 }
